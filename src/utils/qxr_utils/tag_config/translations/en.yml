@@ -1,0 +1,136 @@
+- keyword: tag_abnormal
+  usecase:
+  - contour
+  value: Abnormal
+- keyword: tag_atelectasis
+  usecase:
+  - contour
+  value: Atelectasis
+- keyword: tag_bluntedcp
+  usecase:
+  - contour
+  value: Blunted Costophrenic Angle
+- keyword: tag_calcification
+  usecase:
+  - contour
+  value: Calcification
+- keyword: tag_cardiomegaly
+  usecase:
+  - contour
+  value: Cardiomegaly
+- keyword: tag_cavity
+  usecase:
+  - contour
+  value: Cavity
+- keyword: tag_chest
+  usecase:
+  - contour
+  value: Chest
+- keyword: tag_consolidation
+  usecase:
+  - contour
+  value: Consolidation
+- keyword: tag_diaphragm
+  usecase:
+  - contour
+  value: Raised/Tented Diaphragm
+- keyword: tag_degenspine
+  usecase:
+  - contour
+  value: Degenerative Spine Condition
+- keyword: tag_emphysema
+  usecase:
+  - contour
+  value: Emphysema
+- keyword: tag_fibrosis
+  usecase:
+  - contour
+  value: Fibrosis
+- keyword: tag_fliprot
+  usecase:
+  - contour
+  value: Fliprot
+- keyword: tag_hilarlymphadenopathy
+  usecase:
+  - contour
+  value: Hilar Prominence
+- keyword: tag_nodule
+  usecase:
+  - contour
+  value: Nodule
+- keyword: tag_pneumoperitoneum
+  usecase:
+  - contour
+  value: Pneumoperitoneum
+- keyword: tag_ribfracture
+  usecase:
+  - contour
+  value: Ribfracture
+- keyword: tag_opacity
+  usecase:
+  - contour
+  value: Opacity
+- keyword: tag_peffusion
+  usecase:
+  - contour
+  value: Pleural Effusion
+- keyword: tag_pneumothorax
+  usecase:
+  - contour
+  value: Pneumothorax
+- keyword: tag_scoliosis
+  usecase:
+  - contour
+  value: scoliosis
+- keyword: tag_segmentation
+  usecase:
+  - contour
+  value: Segmentation
+- keyword: tag_trachealshift
+  usecase:
+  - contour
+  value: Tracheal Shift
+- keyword: tag_tuberculosis
+  usecase:
+  - contour
+  value: Tuberculosis
+- keyword: tag_covid19
+  usecase:
+  - contour
+  value: Covid-19
+- keyword: tag_breathingtube
+  usecase:
+  - contour
+  value: Breathing Tube Placement
+- keyword: tag_gastrictube
+  usecase:
+  - contour
+  value: Gastric Tube Placement
+- keyword: tag_markings
+  usecase:
+  - contour
+  value: markings
+- keyword: label_none
+  usecase:
+  - contour
+  value: None
+- keyword: label_other
+  usecase:
+  - contour
+  value: Other
+- keyword: label_multiple_types
+  usecase:
+  - contour
+  value: Multiple Types
+- keyword: impression_abnormal
+  usecase:
+  -  report
+  value: Abnormal study
+- keyword: impression_normal
+  usecase:
+  -  report
+  value: No significant abnormality detected
+- keyword: impression_to_be_read
+  usecase:
+  -  report
+  value: To be read by a Radiologist

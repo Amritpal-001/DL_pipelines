@@ -1,0 +1,29 @@
+pandas
+numpy
+matplotlib
+seaborn
+sklearn
+
+# DeepLearning
+torch
+torchvision
+torchaudio
+albumentations
+
+#  Tabular data
+xgboost
+catboost
+lightgbm
+
+
+# Hyperparamaters optimization
+Optuna
+
+
+#AutoML
+
+# Analysis
+
+
+#FeatureSelection
+featuretools

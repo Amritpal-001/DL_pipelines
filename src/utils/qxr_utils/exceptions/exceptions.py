@@ -1,0 +1,2 @@
+class InvalidPixelData(RuntimeError):
+    pass

@@ -1,0 +1,82 @@
+data:
+  preprocess : True
+  preprocessMode : 'MinMaxScaler'
+  train_test_split : True
+  test_train_split_Mode : 'random'
+  test_size : 0.1
+
+dataloader:
+  _target_: src.dataloader.model
+  path: './data/sample/titanic_train.csv'
+  target_column: 'target_carbon_monoxide'
+  ignore_col : ['date_time' , 'target_benzene' , 'target_nitrogen_oxides'] #['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']
+  fold_id: 0
+
+model:
+  _target_: src.models.tabular.tabularmodel
+  architecture: "xgboost"
+  problem: "regression"
+  num_classes: 1
+  accelerator: None
+  gpus: 1
+  max_epochs: 12
+  precision: 16
+
+model_config:
+param['gpu_id'] = 0
+param['tree_method'] = 'gpu_hist'
+
+#https://xgboost.readthedocs.io/en/latest/python/python_api.html#module-xgboost.sklearn
+
+{'n_estimators': 2000,
+ 'subsample': 0.6,
+ 'colsample_bytree': 0.9,
+ 'eta': 0.007939812697028495,
+ 'reg_alpha': 46,
+ 'reg_lambda': 64,
+ 'max_depth': 12,
+ 'min_child_weight': 20,
+ 'tree_method': 'gpu_hist',
+ 'random_state': 42}
+'objective':'binary:logistic'
+
+param_dist = {'objective':'binary:logistic', 'n_estimators':2}
+
+clf = xgb.XGBModel(**param_dist)
+
+xgb.train({'tree_method': 'hist', 'seed': 1994,
+           'disable_default_eval_metric': 1},
+          dtrain=dtrain,
+          num_boost_round=10,
+          obj=squared_log,
+          feval=rmsle,
+          evals=[(dtrain, 'dtrain'), (dtest, 'dtest')],
+          evals_result=results)
+
+  loss_fn: binary_cross_entropy_with_logits
+  lr: 1e-3
+  wd: 1e-5
+
+train_config:
+X
+y
+eval_set
+eval_metric
+early_stopping_rounds
+
+
+clf.fit(X_train, y_train,
+        eval_set=[(X_train, y_train), (X_test, y_test)],
+        eval_metric='logloss',
+        verbose=True)
+
+wandb:
+  _target_: pytorch_lightning.loggers.WandbLogger
+  name: "Dogs & Cats"
+  project: "Dogs and Cats"
+
+trainer:
+  accelerator: None
+  gpus: 1
+  max_epochs: 12
+  precision: 16
