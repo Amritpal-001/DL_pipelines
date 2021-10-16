@@ -79,7 +79,7 @@ class imageDataLoader(LightningDataModule):
         self.test_df = self.test_df  # imageDataset(valid_df, transform = self.valid_tfms)
 
     def train_dataloader(self):
-        train_dataset = imageDataset(dataframe=self.train_df,path_column= self.path_column 
+        train_dataset = imageDataset(dataframe=self.train_df,path_column= self.path_column ,
                                      label_column= self.label_column, transform=self.train_tfms)
 
         return DataLoader( train_dataset,
@@ -89,7 +89,7 @@ class imageDataLoader(LightningDataModule):
             pin_memory=True,)
 
     def test_dataloader(self):
-            test_dataset = imageDataset(dataframe=self.test_df, path_column= self.path_column 
+            test_dataset = imageDataset(dataframe=self.test_df, path_column= self.path_column ,
                                      label_column= self.label_column, transform=self.valid_tfms)
 
             return DataLoader(
@@ -100,7 +100,7 @@ class imageDataLoader(LightningDataModule):
                 pin_memory=True,)
 
     def predict_dataloader(self):
-            predict_dataset = imageDataset(dataframe=self.test_df, path_column= self.path_column 
+            predict_dataset = imageDataset(dataframe=self.test_df, path_column= self.path_column ,
                                      label_column= self.label_column, transform=self.valid_tfms)
 
             return DataLoader(
@@ -111,7 +111,7 @@ class imageDataLoader(LightningDataModule):
                 pin_memory=True,)
 
     def val_dataloader(self):
-        val_dataset = imageDataset(dataframe=self.valid_df, path_column= self.path_column 
+        val_dataset = imageDataset(dataframe=self.valid_df, path_column= self.path_column ,
                                      label_column= self.label_column, transform=self.valid_tfms)
 
         return DataLoader(
@@ -180,6 +180,5 @@ class imageDataLoader(LightningDataModule):
         get_ImageDataset_tSNE(test_data,  n_components=n_components , perplexity=perplexity)
         plt.title('Test')
         plt.show()
-
 
 
