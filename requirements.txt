@@ -3,6 +3,7 @@ numpy
 matplotlib
 seaborn
 sklearn
+plotly
 
 # DeepLearning
 torch
@@ -24,6 +25,10 @@ Optuna
 
 # Analysis
 
+
+# Explainable AI
+saliency
+colorcet
 
 #FeatureSelection
 featuretools

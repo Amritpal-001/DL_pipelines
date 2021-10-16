@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 #import logging
 from ..constants import tabular_configs
 
-#logging.basicConfig(filename='testrun.log' , level = logging.INFO , format = '%(asctime)s:%(levelname)s:%(messages)s:')
+#logging.basicConfig(filename='test_tabular.log' , level = logging.INFO , format = '%(asctime)s:%(levelname)s:%(messages)s:')
 
 
 class tabularmodel(Model):

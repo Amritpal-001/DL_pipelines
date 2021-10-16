@@ -18,6 +18,10 @@ from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 # from omegaconf import DictConfig, OmegaConf
 import timm
 
+import matplotlib.pyplot as plt
+
+from src.explain.feature_maps import create_forward_hook , create_backward_hook , visualize_feature_maps
+
 loss_fns = {"binary_cross_entropy_with_logits": F.binary_cross_entropy_with_logits,
     "binary_cross_entropy" :F.binary_cross_entropy,
     'cross_entropy' :F.cross_entropy,}
@@ -38,10 +42,10 @@ class ImageModel(pl.LightningModule):
         self,
         model_name: str = 'resnet18',
         num_classes: int = 10,
-        loss_fn: str = "binary_cross_entropy",
+        loss_fn: str = "cross_entropy",
         lr=1e-4,
         wd=1e-6,
-        pretrained = False,
+        pretrained = True,
     ):
         super().__init__()
 
@@ -52,6 +56,7 @@ class ImageModel(pl.LightningModule):
         self.lr = lr
         self.accuracy = pl.metrics.Accuracy()
         self.wd = wd
+        self.num_classes = num_classes
 
     def forward(self, x):
         z = self.timm_model(x)
@@ -68,13 +73,30 @@ class ImageModel(pl.LightningModule):
         x, y = batch
         y_hat = self(x) #.view(-1)
         loss = self.loss_fn(y_hat, y)
-        self.log("valid_loss", loss, prog_bar=True)
+        self.log("val_loss", loss, prog_bar=True)
         self.log("val_acc", self.accuracy(y_hat, y), prog_bar=True)
+
+
+    def test_step(self, batch, batch_idx):
+        x, y = batch
+        y_hat = self(x)
+        return y_hat
+
+    def predict_step(self, batch, batch_idx: int, dataloader_idx: int = None):
+        x, y = batch
+        y_hat = self(x)
+        return y_hat
 
     def configure_optimizers(self):
 
         return optim.AdamW(self.parameters(), lr=self.lr
                            , weight_decay=self.wd )
+
+    def print_timmmodels(self , name):
+        print(timm.list_models(f'*{name}*'))
+
+    def get_children_name(self):
+        return dict(self.timm_model.named_children()).keys()
 
     def get_children(self):
 
@@ -114,4 +136,69 @@ class ImageModel(pl.LightningModule):
             Trainable_params = ('Trainable params - ' + str(params))
             print(Trainable_params)
 
+    def visualize_feature_maps(self , image , show_forward = True , class_index = 1,
+                               show_backward =False,  layers = ['layer1'] , layer_sub_index = 0):
 
+        index = layer_sub_index
+
+        if show_forward == True:
+            forward_hook = create_forward_hook(self.timm_model)
+        if show_backward == True:
+            backward_hook = create_backward_hook(self.timm_model)
+
+        output = self.timm_model(image)
+        print(output)
+        if show_forward == True:
+            for layer_name in layers:
+                visualize_feature_maps(forward_hook[layer_name][index][index])
+
+        if show_backward == True:
+            output.sigmoid()
+            self.timm_model.zero_grad()
+            class_tensor = [0] * self.num_classes
+            class_tensor[class_index] = 1
+            print(class_tensor)
+            one_hot = torch.tensor(class_tensor).float().requires_grad_(True)
+            one_hot.mul(output).sum().backward(retain_graph=True)
+
+            for layer_name in layers:
+                visualize_feature_maps(backward_hook[layer_name][0][0][0])
+
+
+
+
+document_dic = {
+    'ModelCheckpoint' : 'ModelCheckpoint(dirpath=None, filename=None, monitor=None, verbose=False,'
+                        'save_last=None, save_top_k=1, save_weights_only=False,'
+                        'mode="min", auto_insert_metric_name=True,'
+                        'every_n_train_steps=None, train_time_interval=None,'
+                         'every_n_epochs=None, save_on_train_epoch_end=None,'
+                        'period=None, every_n_val_epochs=None)'
+}
+def print_docs(function):
+    print(document_dic[function])
+
+
+
+def make_model_predictions( test_dataloader , model_path = None , model = None, device = 'cuda', return_probs = True):
+
+    if model_path != None:
+        model_load(model_path)
+
+    was_training = model.training
+    model.eval()
+    test_list = []
+    model.to(device)
+    with torch.no_grad():
+        for i, (inputs, labels) in enumerate(test_dataloader):
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+
+            outputs = model(inputs)
+            if return_probs == False:
+                _, preds = torch.max(outputs, 1)
+            test_list.append(outputs)
+            print(outputs.shape)
+
+        model.train(mode=was_training)
+    return(test_list)

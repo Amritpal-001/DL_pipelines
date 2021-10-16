@@ -1,7 +1,6 @@
 
 from ..metrics.meter import get_classification_statistics,get_regression_statistics
 import numpy as np
-from scipy import stats
 import pandas as pd
 from src.utils.dataModifier import analyze
 

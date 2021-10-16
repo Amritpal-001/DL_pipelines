@@ -105,7 +105,7 @@ def analyze( data , force = False, percentiles = [0.05, 0.10, 0.25,0.50, 0.75, 0
         return(analysis)
 
 
-def trainTestSplit(df=None, target_column= None,
+def trainTestSplit(df=None, target_column='target',
                    mode='random', test_size: float = 0.1, split_random_seed: int = 42):
     """
     modes supported

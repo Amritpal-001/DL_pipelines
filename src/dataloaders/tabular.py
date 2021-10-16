@@ -2,7 +2,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-
+import numpy as np
+import plotly
 from ..models.tabular import  tabularmodel
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -213,5 +214,98 @@ class tabularData():
     def add_dateTime_features(self):
 
         print()
+
+    def give_me_first_look(self):
+        # Xgboost based feature importance
+
+        #Distribution visualisation
+        self.showSample()
+        self.analyze()
+        self.plot_continous_variables()
+        #self.plot_categorical_variables()
+
+        #Dataframe sample
+
+    def get_tSNE(self):
+        from sklearn.manifold import TSNE
+        import plotly.offline as py
+        import plotly.graph_objs as go
+        import plotly.tools as tls
+
+        tsne = TSNE(
+            n_components=3,
+            init='random',  # pca
+            random_state=101,
+            method='barnes_hut',
+            n_iter=250,
+            verbose=2,
+            angle=0.5).fit_transform(np.array(self.data))
+
+        #py.init_notebook_mode(connected=True)
+
+        import plotly.io as pio
+        import plotly.io as pio
+
+        pio.renderers.default = "png"
+
+        '''pio.renderers
+
+        Default
+        renderer: 'vscode'
+        Available
+        renderers:
+        ['plotly_mimetype', 'jupyterlab', 'nteract', 'vscode',
+         'notebook', 'notebook_connected', 'kaggle', 'azure', 'colab',
+         'cocalc', 'databricks', 'json', 'png', 'jpeg', 'jpg', 'svg',
+         'pdf', 'browser', 'firefox', 'chrome', 'chromium', 'iframe',
+         'iframe_connected', 'sphinx_gallery', 'sphinx_gallery_png']'''
+
+        trace1 = go.Scatter3d(
+            x=tsne[:, 0],
+            y=tsne[:, 1],
+            z=tsne[:, 2],
+            mode='markers',
+            marker=dict(
+                sizemode='diameter',
+                # color = dataloader.data['target_carbon_monoxide'].values,
+                color=self.data.index,  # z.values,,
+                colorscale='Portland',
+                colorbar=dict(title='duplicate'),
+                line=dict(color='rgb(255, 255, 255)'),
+                opacity=0.50
+            )
+        )
+
+        import plotly.io as pio
+        png_renderer = pio.renderers["png"]
+        png_renderer.width = 500
+        png_renderer.height = 500
+
+        pio.renderers.default = "png"
+
+        import plotly.graph_objects as go
+        fig = go.Figure(
+            data=[go.Bar(y=[2, 1, 3])],
+            layout_title_text="A Figure Displayed with the 'png' Renderer"
+        )
+        fig.show()
+        '''
+
+        fig = go.Figure(
+            data=[trace1],
+            layout_title_text="A Figure Displayed with the 'png' Renderer"
+        )
+        fig.show(renderer="png")'''
+        '''data = 
+        layout = dict(height=800, width=800, title='test')
+        fig = dict(data=data, layout=layout)
+        #fig.show(renderer="svg")
+
+        py.iplot(fig, filename='3DBubble')'''
+
+
+
+
+
 
 
