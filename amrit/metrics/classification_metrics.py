@@ -1,7 +1,7 @@
 
 from sklearn.metrics import accuracy_score , auc , balanced_accuracy_score , classification_report , confusion_matrix, \
     f1_score , jaccard_score, matthews_corrcoef, multilabel_confusion_matrix, precision_score , \
-    recall_score ,roc_curve , top_k_accuracy_score, cohen_kappa_score
+    recall_score ,roc_curve , cohen_kappa_score
 
 #https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics
 
@@ -40,9 +40,6 @@ def get_recall_score(preds, gt):
 
 def get_roc_curve(preds, gt):
     return( roc_curve(preds, gt))
-
-def get_top_k_accuracy_score(preds, gt):
-    return( top_k_accuracy_score(preds, gt))
 
 def get_cohen_kappa_score(preds, gt):
     return( cohen_kappa_score(preds, gt))
