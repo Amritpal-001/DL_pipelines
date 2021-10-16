@@ -68,7 +68,7 @@ def get_Flatted_Numpy_Images_from_Folder(folder_path):
     return images , labels
 
 
-def get_Flatted_Numpy_Images_from_DataFrame(df , path_column = 'file_path' , label_column = 'target')):
+def get_Flatted_Numpy_Images_from_DataFrame(df , path_column = 'file_path' , label_column = 'target'):
     images = []
     labels = []
 
