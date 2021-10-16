@@ -1,12 +1,12 @@
 
 
-from src.dataloaders.tabular import tabularData
-from src.predictions.helper_fun import *
+from amrit.dataloaders.tabular import tabularData
+from amrit.predictions.helper_fun import *
 
 
 
-from src.dataloaders.tabular import tabularData
-from src.predictions.helper_fun import *
+from amrit.dataloaders.tabular import tabularData
+from amrit.predictions.helper_fun import *
 
 
 data_path = './data/sample/titanic_train.csv'  #'./data/sample/TPS_july2021.csv'
