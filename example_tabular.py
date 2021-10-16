@@ -1,8 +1,8 @@
 
-from src.models.tabular import tabularmodel
-from src.dataloaders.tabular import tabularData
-from src.predictions.analyze_preds import prediction_plotter
-from src.utils.dataModifier import set_seed
+from amrit.models.tabular import tabularmodel
+from amrit.dataloaders.tabular import tabularData
+from amrit.predictions.analyze_preds import prediction_plotter
+from amrit.utils.dataModifier import set_seed
 
 import warnings
 warnings.filterwarnings("ignore")

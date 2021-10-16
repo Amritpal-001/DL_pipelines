@@ -3,17 +3,15 @@ import random
 import warnings
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
-from src.explain.explain_helpers import load_image
-from src.dataloaders.tabular import tabularData
-from src.dataloaders.image import imageDataset, imageDataLoader
-from src.models.tabular import tabularmodel
-from src.models.cnnModel import ImageModel
-from src.predictions.analyze_preds import prediction_plotter
-from src.utils.dataModifier import set_seed , get_labels_df_from_folder, trainTestSplit
-from src.utils.augmentations import get_augmentations
-from src.utils.dataModifier import trainTestSplit
-from src.utils.filefolder import get_random_Imagepath , get_random_list_Imagepath
-from src.explain.explain_cnn import get_guided_GradCAM , plot_gradcam_comparison, plot_in_grid , plot_gradcam_single_image
+
+from amrit.explain.explain_helpers import load_image
+from amrit.dataloaders.image import imageDataset, imageDataLoader
+from amrit.models.cnnModel import ImageModel
+from amrit.predictions.analyze_preds import prediction_plotter
+from amrit.utils.dataModifier import set_seed , get_labels_df_from_folder, trainTestSplit
+from amrit.utils.dataModifier import trainTestSplit
+from amrit.utils.filefolder import get_random_Imagepath , get_random_list_Imagepath
+from amrit.explain.explain_cnn import get_guided_GradCAM , plot_gradcam_comparison, plot_in_grid , plot_gradcam_single_image
 
 warnings.filterwarnings("ignore")
 
