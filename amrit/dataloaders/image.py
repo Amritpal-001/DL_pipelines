@@ -148,7 +148,8 @@ class imageDataLoader(LightningDataModule):
             data = self.train_df
 
         plt.figure(figsize=(15,15))
-        get_ImageDataset_tSNE(data , n_components=n_components , perplexity=perplexity )
+        get_ImageDataset_tSNE(data , n_components=n_components , perplexity=perplexity ,
+                              path_column = self.path_column , label_column = self.label_column)
         plt.show()
 
 
@@ -171,13 +172,16 @@ class imageDataLoader(LightningDataModule):
 
         plt.figure(figsize=(20, 8))
         plt.subplot(1,3,1)
-        get_ImageDataset_tSNE(train_data,  n_components=n_components , perplexity=perplexity )
+        get_ImageDataset_tSNE(train_data,  n_components=n_components , perplexity=perplexity ,
+                              path_column = self.path_column , label_column = self.label_column)
         plt.title('Train')
         plt.subplot(1,3,2)
-        get_ImageDataset_tSNE(valid_data,  n_components=n_components , perplexity=perplexity )
+        get_ImageDataset_tSNE(valid_data,  n_components=n_components , perplexity=perplexity ,
+                              path_column = self.path_column , label_column = self.label_column)
         plt.title('Valid')
         plt.subplot(1,3,3)
-        get_ImageDataset_tSNE(test_data,  n_components=n_components , perplexity=perplexity)
+        get_ImageDataset_tSNE(test_data,  n_components=n_components , perplexity=perplexity,
+                              path_column = self.path_column , label_column = self.label_column)
         plt.title('Test')
         plt.show()
 
