@@ -139,15 +139,19 @@ class imageDataLoader(LightningDataModule):
         # out = torchvision.utils.make_grid(inputs)
         # imshow(out)
 
-    def get_tSNE(self, data= None,  n_components=180 , perplexity=80.0 ):
+    def get_tSNE(self, data= None,  n_components=180 , perplexity=80.0  , max_count = 2500 ):
         if data == 'test':
             data = self.test_df
         elif data == 'val':
             data = self.valid_df
         else:
             data = self.train_df
-
+        
+        if data.shape[0] > max_count:
+            data = data.sample(max_count)
+ 
         plt.figure(figsize=(15,15))
+        print(f'starting tSNE for {data}')
         get_ImageDataset_tSNE(data , n_components=n_components , perplexity=perplexity ,
                               path_column = self.path_column , label_column = self.label_column)
         plt.show()
