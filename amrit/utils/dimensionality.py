@@ -7,8 +7,8 @@ from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 import  matplotlib.pyplot as plt
 
-def get_ImageDataset_tSNE(dataframe= None, n_components=180 , perplexity=80.0 ):
-    images, labels = get_Flatted_Numpy_Images_from_DataFrame(dataframe)
+def get_ImageDataset_tSNE(dataframe= None, n_components=180 , perplexity=80.0 , path_column = 'file_path' , label_column = 'target')):
+    images, labels = get_Flatted_Numpy_Images_from_DataFrame(dataframe , path_column = path_column , label_column = label_column))
     label_to_id_dict = {v: i for i, v in enumerate(np.unique(labels))}
     id_to_label_dict = {v: k for k, v in label_to_id_dict.items()}
     label_ids = np.array([label_to_id_dict[x] for x in labels])
