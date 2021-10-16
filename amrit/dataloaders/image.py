@@ -149,6 +149,7 @@ class imageDataLoader(LightningDataModule):
         
         if data.shape[0] > max_count:
             data = data.sample(max_count)
+            print(f'Image count {data.shape[0]}, so plotting tSNE for sub sample of {max_count}')
  
         plt.figure(figsize=(15,15))
         print(f'starting tSNE for {data}')
