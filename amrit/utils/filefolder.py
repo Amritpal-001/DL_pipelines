@@ -68,13 +68,13 @@ def get_Flatted_Numpy_Images_from_Folder(folder_path):
     return images , labels
 
 
-def get_Flatted_Numpy_Images_from_DataFrame(df):
+def get_Flatted_Numpy_Images_from_DataFrame(df , path_column = 'file_path' , label_column = 'target')):
     images = []
     labels = []
 
-    for index in range(len(df['file_path'])):
-            image_path = df['file_path'].iloc[index]
-            label = df['target'].iloc[index]
+    for index in range(len(df[path_column])):
+            image_path = df[path_column].iloc[index]
+            label = df[label_column].iloc[index]
             image = cv2.imread(image_path, cv2.IMREAD_COLOR)
 
             image = cv2.resize(image, (150, 150))
