@@ -2,109 +2,103 @@
 for any function documentaion - use
  - help(function_name)
 
-ImageDataloader
 
+amritpal@amritpal-TUF-Gaming-FX506LI-FX566LI:~/PycharmProjects/Kaggle Pipeline (copy)$ tree
+```bash
+├── amrit
+│ ├── configs
+│ │ ├── imageClassification.yaml
+│ │ ├── Optuna.yaml
+│ │ └── tabular.yaml
+│ ├── constants.py
+│ ├── credentials
+│ │ ├── kaggle
+│ │ └── weight_and_biases
+│ ├── dataloaders
+│ │ ├── dimension_Reduction.py
+│ │ ├── image.py
+│ │ ├── __init__.py
+│ │ └── tabular.py
+│ ├── explain
+│ │ ├── explain_cnn.py
+│ │ ├── explain_helpers.py
+│ │ ├── feature_maps.py
+│ │ ├── __init__.py
+│ │ └── saliency/
+│ ├── metrics
+│ │ ├── classification_metrics.py
+│ │ ├── meter.py
+│ │ ├── regression_metrics.py
+│ │ └── segmentation.py
+│ ├── models
+│ │ ├── cnnModel.py
+│ │ ├── __init__.py
+│ │ ├── model.py
+│ │ ├── __pycache__
+│ │ │ ├── __init__.cpython-38.pyc
+│ │ │ ├── model.cpython-38.pyc
+│ │ │ └── tabular.cpython-38.pyc
+│ │ └── tabular.py
+│ ├── predictions
+│ │ ├── analyze_preds.py
+│ │ ├── helper_fun.py
+│ │ └── __init__.py
+│ ├── __pycache__
+│ │ ├── constants.cpython-38.pyc
+│ │ └── __init__.cpython-38.pyc
+│ ├── templates
+│ │ ├── __init__.py
+│ │ ├── kaggle_TPS_dimension_reduction.ipynb
+│ │ ├── kaggle_TPS_EDA.ipynb
+│ │ ├── kaggle_TPS_EDA.py
+│ │ ├── kaggle_TPS_inference.py
+│ │ └── kaggle_TPS_train.py
+│ └──templates
+├── example_cnn.py
+├── example_hydra.py
+├── example_tabular.py
+├── readme.md
+├── requirements.txt
+├── test_cnn.py
+├── test_dataloader.py
+├── test_feature_maps.py
+├── testing.py
+├── test_metrics.py
+├── test_module.py
+├── test_stratified.py
+├── test_tabular.log
+├── test_tsne.py
+└── Untitled.ipynb
 
-/src/
-    dataloaders/
-        dataloader.py
-        tabular.py  #tSNE plotting https://www.kaggle.com/philschmidt/quora-eda-model-selection-roc-pr-plots
-        image.py #2D   - go.Scatter3d() tSNE plotting for dataset - https://www.kaggle.com/philschmidt/cervix-eda-model-selection#Image-neighbourhood
-        image3D.py #3D image data
+```
 
-        class_overlap - multilabel classification
+## Directories
+./src/
+    ../dataloaders/
+        tabular.py
+        image.py #2D
     models/
-        Model.py
         tabularModel.py
         cnnModel.py
-    predictions/
-        analyze_preds.py   - ground truth known
-            generateMetrics
-            generateStatistics
-        compareModel.py - takes list of preds_filenames, if None - provide list of predictions - ground truth unknown
-            compareModelPred  - metrics, statistics
-            compareModelPred_Stratified - stratified comparison
-            scatterplot
-            train_test_deviation
-
-            generate_report
-        ensemble.py
-            average
-            weighted
-            find_weights
-            NN_based
-            Stacking
-
-    metrics/
-        classificationMetrics
-        regressionMetrics
-        segmentationMetrics
-
-        classificationLoss
-        regressionLoss
-        segmentationLoss
-
-    Utils/
-        featureSelection.py
-            Automated Feature Engineering Basics  - https://www.kaggle.com/willkoehrsen/automated-feature-engineering-basics?scriptVersionId=4120225
-            https://www.featuretools.com/
-        DownloadData.py
-            fromKaggle
-            fromTwitter
-            fromGithub
-            fromDrive
-        getmodel_weights.py
-
-        dataModifier.py
-            Kfold_generator - https://www.kaggle.com/satishgunjal/tutorial-k-fold-cross-validation#Introduction-
-            Startified_CV_generator - https://www.kaggle.com/jakubwasikowski/stratified-group-k-fold-cross-validation
-        dicomHelper - dicomWindowding, DICOM_to_PNG , metadataExtractor
-
-        explainability.py
-            gradCam
-            Shap
-            Saliency maps
-
-            generate_reports
-        dimensionReduction.py
-            tSNE - Image, tabular data
-            PCA - Image, tabular data
-            KNN clustering - Images, data
-        medical_preproces.py
-            segment_lungs
-            image_registration
-        augmentations.py - custom augmentations
-
-        Images.py - nifti, tif --> png files
-
-
-        CalculatePixelInfo  - rgb( mean and std) for your dataset
-
-
-
-
-
-
+    explain/
+        explain_cnn - GradCAM
+        feature_maps - Feature maps
+    dim
     constants.py - directories, model_weights_path
+    config/
+    credentials/
+            weights_and_biases
+            kaggle
 
-config/
-credentials/
-        weights_and_biases
-        kaggle
+## Model types
+### tabular models
+- type = "xgboost" 
+- problem = "classification" , "regression"
+- output = 'probabilities' , 'classes'
+
+### CNN models
+- type =  all timm models
+- problem = "classification" 
+- output = 'probabilities' , 'classes'
 
 
-
-
-
-type = "xgboost" , 'lightgbm'
-problem = "classification" , "regression"
-output = 'probabilities' , 'classes' , 'all_probabilities'
-
-
-
-
-Add template functions -
-    - custom Kfold
-    - custom Stratified
-    - custom ImageDataloader
-    -

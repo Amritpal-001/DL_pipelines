@@ -1,1 +1,0 @@
-from qxr_utils.exceptions.exceptions import InvalidPixelData
