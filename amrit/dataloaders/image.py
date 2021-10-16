@@ -57,7 +57,9 @@ class imageDataLoader(LightningDataModule):
             img_sz: int = 124,
             batch_size: int = 16,
             num_workers: int = 4,
-            shuffle = True
+            shuffle = True,
+        path_column='file_path',
+        label_column='target',
     ):
         super().__init__()
 
@@ -68,6 +70,8 @@ class imageDataLoader(LightningDataModule):
         self.num_workers = num_workers
         self.shuffle = shuffle
         self.train_tfms, self.valid_tfms = get_augmentations(self.aug_p, image_size=self.img_sz)
+        self.path_column= path_column
+        self.label_column =  label_column
 
     def prepare_data(self):
         self.train_df = self.train_df  # imageDataset(train_df , transform = self.train_tfms)
@@ -75,7 +79,8 @@ class imageDataLoader(LightningDataModule):
         self.test_df = self.test_df  # imageDataset(valid_df, transform = self.valid_tfms)
 
     def train_dataloader(self):
-        train_dataset = imageDataset(dataframe=self.train_df, transform=self.train_tfms)
+        train_dataset = imageDataset(dataframe=self.train_df,path_column= self.path_column 
+                                     label_column= self.label_column, transform=self.train_tfms)
 
         return DataLoader( train_dataset,
             batch_size=self.batch_size,
@@ -84,7 +89,8 @@ class imageDataLoader(LightningDataModule):
             pin_memory=True,)
 
     def test_dataloader(self):
-            test_dataset = imageDataset(dataframe=self.test_df, transform=self.train_tfms)
+            test_dataset = imageDataset(dataframe=self.test_df, path_column= self.path_column 
+                                     label_column= self.label_column, transform=self.valid_tfms)
 
             return DataLoader(
                 test_dataset,
@@ -94,7 +100,8 @@ class imageDataLoader(LightningDataModule):
                 pin_memory=True,)
 
     def predict_dataloader(self):
-            predict_dataset = imageDataset(dataframe=self.test_df, transform=self.train_tfms)
+            predict_dataset = imageDataset(dataframe=self.test_df, path_column= self.path_column 
+                                     label_column= self.label_column, transform=self.valid_tfms)
 
             return DataLoader(
                 predict_dataset,
@@ -104,7 +111,8 @@ class imageDataLoader(LightningDataModule):
                 pin_memory=True,)
 
     def val_dataloader(self):
-        val_dataset = imageDataset(dataframe=self.valid_df, transform=self.valid_tfms)
+        val_dataset = imageDataset(dataframe=self.valid_df, path_column= self.path_column 
+                                     label_column= self.label_column, transform=self.valid_tfms)
 
         return DataLoader(
             val_dataset,
