@@ -8,10 +8,6 @@ from torchvision import transforms
 def get_augmentations(p=0.5, image_size=224):
     imagenet_stats = {"mean": [0.485, 0.456, 0.406],
                       "std": [0.229, 0.224, 0.225]}
-    train_tfms = transforms.Compose([transforms.Resize((image_size,image_size)),
-                                 transforms.ToTensor(),
-                              transforms.Normalize((0.5,), (0.5,)),
-                              ])
 
     train_tfms_albu = A.Compose([
         A.Resize(image_size, image_size),
@@ -45,11 +41,6 @@ def get_augmentations(p=0.5, image_size=224):
             ToTensorV2()
             ])
 
-    valid_tfms = transforms.Compose([transforms.Resize((image_size,image_size)),
-                                 transforms.ToTensor(),
-                              transforms.Normalize((0.5,), (0.5,)),
-                              ])
-
     valid_tfms_albu = A.Compose(
         [A.Resize(image_size, image_size),
          Normalize(mean= imagenet_stats['mean'] ,std= imagenet_stats['std'] ,),
@@ -57,6 +48,23 @@ def get_augmentations(p=0.5, image_size=224):
     )
 
     return train_tfms_albu , valid_tfms_albu
+
+
+def get_augmentations_plain(p=0.5, image_size=224):
+    imagenet_stats = {"mean": [0.485, 0.456, 0.406],
+                      "std": [0.229, 0.224, 0.225]}
+    train_tfms = transforms.Compose([transforms.Resize((image_size,image_size)),
+                                 transforms.ToTensor(),
+                              transforms.Normalize((0.5,), (0.5,)),
+                              ])
+
+    valid_tfms = transforms.Compose([transforms.Resize((image_size,image_size)),
+                                 transforms.ToTensor(),
+                              transforms.Normalize((0.5,), (0.5,)),
+                              ])
+
+
+    return train_tfms , valid_tfms
 
 
 def get_tta(image_size=224):
