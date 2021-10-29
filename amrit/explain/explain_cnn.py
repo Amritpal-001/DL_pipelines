@@ -1,10 +1,11 @@
 
 
 import matplotlib.pyplot as plt
-from .saliency.guided_backprop import GuidedBackprop
-from .saliency.grad_cam import GradCam
 
-from .explain_helpers import load_image, make_grayscale, make_black_white, show_mask, show_mask_on_image, cut_image_with_mask
+from .explain_helpers import load_image, show_mask, show_mask_on_image, cut_image_with_mask
+from .saliency.grad_cam import GradCam
+from .saliency.guided_backprop import GuidedBackprop
+
 
 def get_GradCAM(image, model, image_class_id = 0):
     grad_cam = GradCam(model)

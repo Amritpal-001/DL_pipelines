@@ -9,6 +9,24 @@ supported_CNN_models = ['xgboost', 'lightgbm' , 'pycaret' , 'autogluon' , 'tabne
 supported_CNN_problems =  ['classification' , 'segmentation']
 supported_CNN_outputs = ['probability' ]
 
+###### Image datasets
+#singleLabel Binary classification
+cat_dog = "data/Imageclassification/cat_dog/Train"
+#SingleLabel Multiclass classification
+MedImageNet = "data/Imageclassification/MedImageNet mini"
+#Multilabel multiclass classification
+# Segmentation
+
+###### Tabular dataset
+
+# Titanic dataset - mixed inputs
+# Regression
+# Classification 
+
+
+###### Predictions
+# TPS July - 9 class regression
+#
 
 tabular_configs = {
     'xgboost' :  { 'gpu' : {'n_estimators': 100,

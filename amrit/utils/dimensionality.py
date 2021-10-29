@@ -1,11 +1,12 @@
 
-from amrit.utils.filefolder import get_Flatted_Numpy_Images_from_DataFrame
-
+import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
-import  matplotlib.pyplot as plt
+
+from amrit.utils.filefolder import get_Flatted_Numpy_Images_from_DataFrame
+
 
 def get_ImageDataset_tSNE(dataframe= None, n_components=180 , perplexity=80.0 , path_column = 'file_path' , label_column = 'target'):
     images, labels = get_Flatted_Numpy_Images_from_DataFrame(dataframe , path_column = path_column , label_column = label_column)

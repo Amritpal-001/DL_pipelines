@@ -1,8 +1,11 @@
 
-from ..metrics.meter import get_classification_statistics,get_regression_statistics
 import numpy as np
 import pandas as pd
+from scipy import stats
+
 from amrit.utils.dataModifier import analyze
+from ..metrics.meter import get_classification_statistics, get_regression_statistics
+
 
 class prediction_plotter():
 

@@ -4,19 +4,14 @@
 # In[1]:
 
 
-import os
 import glob
-import pydicom
-import shutil
-import time
+import os
 
 import pandas as pd
+import pydicom
 
 
 # In[10]:
-
-
-import pydicom
 
 def get_metadata_from_dicom(dcm_path: str) :
     """

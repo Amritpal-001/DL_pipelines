@@ -1,14 +1,14 @@
 
 
+import matplotlib.pyplot as plt
 # import lgbm
 # import catboost
 import xgboost
+
 from amrit.models.model import Model
-
-import matplotlib.pyplot as plt
-
-#import logging
+# import logging
 from ..constants import tabular_configs
+
 
 #logging.basicConfig(filename='test_tabular.log' , level = logging.INFO , format = '%(asctime)s:%(levelname)s:%(messages)s:')
 
@@ -70,6 +70,64 @@ class tabularmodel(Model):
         print("finished training")
 
         return(self.model)
+
+
+    def fit_StratifiedKFold(self , dataloader, fold = 5 , stratified = True , split_data = True,   split_mode = 'random' , test_size  = 0.1):
+        from sklearn.model_selection import StratifiedKFold, KFold
+        import numpy as np
+        import gc
+
+        ### https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection
+
+        # KFold - Split dataset into k consecutive folds (without shuffling by default).
+        # RepeatedKFold - Repeats K-Fold n times.
+        # StratifiedKFold - Takes group information into account to avoid building folds with imbalanced class distributions (for binary or multiclass classification tasks).
+        #StratifiedShuffleSplit -
+
+        #### Require addtional arguments - "groups"
+        #GroupKFold - K-fold iterator variant with non-overlapping groups.
+        #LeaveOneGroupOut - For splitting the data according to explicit domain-specific stratification of the dataset.
+        #LeavePGroupsOut -
+
+
+
+        if stratified == True:
+            skf = StratifiedKFold(n_splits= fold, random_state=None, shuffle=False)
+        else:
+            skf = KFold(n_splits=fold , random_state=None, shuffle=False)
+
+
+        if split_data == True:
+                dataloader.train_test_split(mode= split_mode , test_size  = test_size , split_random_seed   = 42)
+
+        train = dataloader.Xtrain
+        y = dataloader.Ytrain
+        test = dataloader.Xtest
+
+        # Declaration Pred Datasets
+        train_fold_pred = np.zeros((train.shape[0], 1))
+        test_pred = np.zeros((test.shape[0], fold))
+
+        for fold, (train_index, valid_index) in enumerate(skf.split( train , y )
+):
+            x_train, y_train = train.iloc[train_index], y[train_index]
+            x_valid, y_valid = train.iloc[valid_index], y[valid_index]
+
+            print('------------ Fold', fold + 1, 'Start! ------------')
+            self.model.fit(x_train, y_train, eval_set=[(x_valid, y_valid)], eval_metric='auc', verbose=50, early_stopping_rounds=200)
+
+            train_fold_pred[valid_index, :] = self.model.predict(x_valid).reshape(-1, 1)
+            test_pred[:, fold] = self.model.predict(test)
+            del x_train, y_train, x_valid, y_valid
+            gc.collect()
+
+        test_pred_mean = np.mean(test_pred, axis=1).reshape(-1, 1)
+        del test_pred
+        gc.collect()
+        print('Done!')
+
+        return train_fold_pred, test_pred_mean
+
 
 
     #def plot_

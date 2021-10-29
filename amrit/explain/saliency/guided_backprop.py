@@ -1,5 +1,7 @@
 import torch
+
 from .vanilla_gradient import VanillaGradient
+
 
 class GuidedBackprop(VanillaGradient):
     def __init__(self, model):

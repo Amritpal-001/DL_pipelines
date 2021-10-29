@@ -1,8 +1,8 @@
 import logging
 
+import SimpleITK as sitk
 import numpy as np
 import open3d as o3d
-import SimpleITK as sitk
 from tqdm.auto import tqdm
 
 logger = logging.getLogger(__name__)

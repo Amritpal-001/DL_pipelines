@@ -1,5 +1,6 @@
-import torch
 import numpy as np
+import torch
+
 from .vanilla_gradient import VanillaGradient
 
 

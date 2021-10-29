@@ -1,7 +1,9 @@
 
+import numpy as np
+
 from .classification_metrics import *
 from .regression_metrics import *
-import numpy as np
+
 
 def get_classification_statistics(preds, gt):
 

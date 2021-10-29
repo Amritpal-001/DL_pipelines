@@ -1,14 +1,13 @@
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-import numpy as np
-import plotly
-from ..models.tabular import  tabularmodel
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 from amrit.utils.dataModifier import analyze
+from ..models.tabular import tabularmodel
+
 
 class tabularData():
 
@@ -37,9 +36,9 @@ class tabularData():
         self.target_column = target_column
         self.data_path = data_path
 
-        assert  (data!= None or data_path != None)  , 'Provide either the data or data path'
+        #assert  (data!= None and  data_path != None)  , 'Provide either the data or data path'
 
-        if data != None:
+        if data_path == None:
            self.data = data
         else:
             assert  data_path != None, "Since no data is provided, provide the path to datafile"
@@ -124,11 +123,18 @@ class tabularData():
 
         target_column = self.target_column
 
+        self.train = self.train.reset_index()
+        self.test = self.test.reset_index()
+
+        print(self.train )
+
         if target_column != None:
             self.Xtrain = self.train.drop(columns=target_column)
             self.Xtest = self.test.drop(columns=target_column)
             self.Ytrain = self.train[target_column]
             self.Ytest = self.test[target_column]
+
+            #print(self.Xtrain)
 
             return (self.Xtrain , self.Xtest , self.Ytrain , self.Ytest)
         else:
@@ -189,8 +195,7 @@ class tabularData():
     def getDistributionTable(self):
         print()
 
-    def generateKfold(self):
-        print()
+
 
 
     def suggestModelType(self , model_to_include = None ,  data_size = 0.2):
@@ -228,9 +233,7 @@ class tabularData():
 
     def get_tSNE(self):
         from sklearn.manifold import TSNE
-        import plotly.offline as py
         import plotly.graph_objs as go
-        import plotly.tools as tls
 
         tsne = TSNE(
             n_components=3,
@@ -243,7 +246,6 @@ class tabularData():
 
         #py.init_notebook_mode(connected=True)
 
-        import plotly.io as pio
         import plotly.io as pio
 
         pio.renderers.default = "png"

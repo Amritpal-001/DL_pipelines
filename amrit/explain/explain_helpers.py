@@ -1,8 +1,8 @@
-import numpy as np
-from matplotlib import pyplot as plt
 import colorcet as cc
-from PIL import Image
+import numpy as np
 import torchvision
+from PIL import Image
+from matplotlib import pyplot as plt
 
 
 def normalize(mask, vmin=None, vmax=None, percentile=99):

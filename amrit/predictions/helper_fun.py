@@ -1,12 +1,11 @@
-import pandas
-
-from ..metrics.meter import get_classification_statistics,get_regression_statistics
-import numpy as np
-
-from scipy import stats
-import pandas as pd
-from amrit.utils.dataModifier import analyze
 import copy
+
+import numpy as np
+import pandas
+import pandas as pd
+
+from amrit.utils.dataModifier import analyze
+from ..metrics.meter import get_classification_statistics, get_regression_statistics
 
 
 def scatterplot(self):

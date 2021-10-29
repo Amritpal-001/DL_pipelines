@@ -1,0 +1,17 @@
+
+# Wishlist
+ - Visualize Dataset - Done
+
+ - Add class_count and label_dictiory on ImageDataloader function
+ - Load pretrained_model from directory
+ 
+- Add class specific augmentation option
+- Segmentation model
+- Using model for feature extraction
+- Simple Linear layer neural network - create, train
+
+
+
+# All Augmentation viewer on single image
+# Masks dataset visualizer
+# Model training segmentation

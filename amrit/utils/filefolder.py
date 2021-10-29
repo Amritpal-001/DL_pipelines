@@ -2,9 +2,11 @@
 import glob
 import os.path
 import random
-import pandas as pd
-import numpy as np
+
 import cv2
+import numpy as np
+import pandas as pd
+
 
 def get_file_list(folder_path : str = None ,extension = '.dcm', recursive = False):
     assert folder_path != None , "please provide a folder path"

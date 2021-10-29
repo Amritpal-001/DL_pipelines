@@ -1,10 +1,10 @@
 import numpy as np
 from skimage import segmentation
-from skimage.transform import resize
 from skimage.morphology import disk, dilation
+from skimage.transform import resize
 
-from saliency_mask import SaliencyMask
 from integrated_gradients import IntegratedGradients
+from saliency_mask import SaliencyMask
 
 
 def _normalize_image(im, value_range, resize_shape=None):
